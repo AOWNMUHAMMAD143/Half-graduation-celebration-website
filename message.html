@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Half Graduation Celebration - Messages</title>
+  <style>
+    /* --------------------------
+       CSS SECTION
+    -------------------------- */
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background-color: #0d0d14;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      text-align: center;
+    }
+
+    header {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background-color: #111223;
+      padding: 18px 0;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      text-align: center;
+      font-size: 1.2rem;
+      font-weight: 600;
+      z-index: 10;
+    }
+
+    header small {
+      display: block;
+      font-size: 0.8rem;
+      color: #aaa;
+      font-weight: normal;
+    }
+
+    main {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      padding: 120px 20px 80px;
+    }
+
+    .message-box {
+      background-color: #16162a;
+      border-radius: 12px;
+      padding: 40px;
+      width: 90%;
+      max-width: 800px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
+      text-align: left;
+      line-height: 1.7;
+    }
+
+    .message-box h2 {
+      color: #cfd8ff;
+      margin-bottom: 20px;
+      font-size: 1.4rem;
+    }
+
+    .message-box p {
+      color: #ddd;
+      margin-bottom: 15px;
+      font-size: 1rem;
+    }
+
+    .quote {
+      margin-top: 20px;
+      font-style: italic;
+      color: #a5b2ff;
+    }
+
+    .buttons {
+      display: flex;
+      justify-content: flex-end;
+      margin-top: 25px;
+      gap: 10px;
+    }
+
+    button {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 1rem;
+      font-weight: 500;
+      transition: background 0.2s, transform 0.2s;
+    }
+
+    .back-btn {
+      background-color: #2e2f55;
+      color: #cfd8ff;
+    }
+
+    .back-btn:hover {
+      background-color: #3d3f72;
+      transform: scale(1.05);
+    }
+
+    .next-btn {
+      background-color: #4c6ef5;
+      color: #fff;
+    }
+
+    .next-btn:hover {
+      background-color: #5c7cff;
+      transform: scale(1.05);
+    }
+
+    footer {
+      width: 100%;
+      background-color: #111223;
+      text-align: center;
+      padding: 15px 0;
+      font-size: 0.85rem;
+      color: #777;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    footer span {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- --------------------------
+       HTML SECTION
+  -------------------------- -->
+  <header>
+    🎓 Half Graduation Celebration
+    <small>A Tribute to Your Strength 💪, Honoring Your Dedication 🌟, and Celebrating the Legendary Mark You Leave 🏆✨<br>by | Trailblazing Minds🎇</small>
+  </header>
+
+  <main>
+    <div class="message-box">
+      <h2 id="greeting"></h2>
+      <p>
+        🎉🎓 Halfway there, champions! ✨🌟 We’ve made it through four semesters filled with laughter, sleepless nights, and unforgettable memories! 💪📚 
+        From early morning classes to last-minute submissions, we’ve faced every challenge head-on and come out stronger. 🥳🎈
+      </p>
+      <p>
+        Every exam, every project, every cup of coffee has brought us closer to our dreams. 🎯🔥 
+        Let’s take a moment to celebrate our journey—the victories, the lessons, and the friendships that make it all worthwhile. 🍰🎊 
+        We’ve already achieved so much, and the best is still ahead! 🌈🚀
+      </p>
+      <p>
+        So here’s to us—the unstoppable, unshakable, unbreakable Class of <span id="year"></span>! 🎇💫 
+        Keep shining, keep striving, and let’s make the second half even more legendary! 🌟💖
+      </p>
+
+      <div class="quote">💫 “There is no one magic move or secret that creates victory, but lots of little items that when added together can make you victorious.” — Bill Toomey</div>
+      <div class="quote">🌠 “Do not follow where the path may lead. Go, instead, where there is no path and leave a trail.” — Ralph Waldo Emerson</div>
+
+      <p style="margin-top: 20px;">🏆 So let’s keep dreaming boldly, working fiercely, and writing the story of our own success! 🌠</p>
+
+      <div class="buttons">
+        <button class="back-btn" id="backBtn">Back</button>
+        <button class="next-btn" id="nextBtn">Next</button>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    © 2025 Half Graduation Celebration · Built with <span>❤</span>
+  </footer>
+
+  <audio id="clickSound" src="click.mp3" preload="auto"></audio>
+
+  <script>
+    /* --------------------------
+       JAVASCRIPT SECTION
+    -------------------------- */
+    const greeting = document.getElementById('greeting');
+    const yearSpan = document.getElementById('year');
+    const nextBtn = document.getElementById('nextBtn');
+    const backBtn = document.getElementById('backBtn');
+    const clickSound = document.getElementById('clickSound');
+
+    // Get name from localStorage
+    const name = localStorage.getItem('studentName');
+    const roll = localStorage.getItem('studentRoll');
+    const currentYear = new Date().getFullYear();
+
+    // Set personalized greeting and year
+    if (name) {
+      greeting.textContent = `Hey ${name}!`;
+    } else {
+      greeting.textContent = "Hey there!";
+    }
+    yearSpan.textContent = currentYear;
+
+    // Next & Back buttons
+    nextBtn.addEventListener('click', async () => {
+      try { await clickSound.play(); } catch {}
+      setTimeout(() => {
+        window.location.href = 'generate.html';
+      }, 600);
+    });
+
+    backBtn.addEventListener('click', () => {
+      window.location.href = 'info.html';
+    });
+  </script>
+</body>
+</html>

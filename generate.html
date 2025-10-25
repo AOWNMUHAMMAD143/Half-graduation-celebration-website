@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Half Graduation Celebration - Generate Certificate</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background-color: #0d0d14;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      text-align: center;
+    }
+
+    header {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background-color: #111223;
+      padding: 18px 0;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      text-align: center;
+      font-size: 1.2rem;
+      font-weight: 600;
+      z-index: 10;
+    }
+
+    header small {
+      display: block;
+      font-size: 0.8rem;
+      color: #aaa;
+      font-weight: normal;
+    }
+
+    main {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      padding: 120px 20px 80px;
+    }
+
+    .generate-box {
+      background-color: #16162a;
+      border-radius: 12px;
+      padding: 40px;
+      width: 90%;
+      max-width: 700px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
+      text-align: center;
+    }
+
+    .generate-box h2 {
+      color: #cfd8ff;
+      margin-bottom: 20px;
+      font-size: 1.4rem;
+    }
+
+    .generate-box p {
+      color: #ccc;
+      margin-bottom: 30px;
+      font-size: 1rem;
+    }
+
+    .generate-btn {
+      background-color: #2ecc71;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      padding: 10px 24px;
+      font-size: 1rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: transform 0.2s, background 0.2s;
+    }
+
+    .generate-btn:hover {
+      background-color: #40d885;
+      transform: scale(1.05);
+    }
+
+    footer {
+      width: 100%;
+      background-color: #111223;
+      text-align: center;
+      padding: 15px 0;
+      font-size: 0.85rem;
+      color: #777;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    footer span {
+      color: red;
+    }
+
+    /* Confetti Canvas */
+    #confettiCanvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 999;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    🎓 Half Graduation Celebration
+     <p>Such outstanding work calls for a badge!” 🏅👏</p>
+     <small>I am here to give🎉</small>
+  </header>
+
+  <main>
+    <div class="generate-box">
+      <h2>Get Ready for Your Certificate!</h2>
+      <p>Great journeys deserve great recognition — here comes yours!</p>
+      <button class="generate-btn" id="generateBtn">Generate My Certificate</button>
+    </div>
+  </main>
+
+  <footer>
+    © 2025 Half Graduation Celebration · a little appriciation for your outstanding work.<span>❤</span>
+  </footer>
+
+  <canvas id="confettiCanvas"></canvas>
+
+  <audio id="clickSound" src="click.mp3" preload="auto"></audio>
+
+  <script>
+    const generateBtn = document.getElementById('generateBtn');
+    const clickSound = document.getElementById('clickSound');
+    const canvas = document.getElementById('confettiCanvas');
+    const ctx = canvas.getContext('2d');
+
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    window.addEventListener('resize', () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    });
+
+    let confettis = [];
+
+    function createConfetti() {
+      const colors = ['#ff0a54', '#ffb703', '#8ac926', '#1982c4', '#6a4c93'];
+      for (let i = 0; i < 150; i++) {
+        confettis.push({
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height - canvas.height,
+          size: Math.random() * 8 + 4,
+          color: colors[Math.floor(Math.random() * colors.length)],
+          speed: Math.random() * 4 + 2,
+          angle: Math.random() * 2 * Math.PI
+        });
+      }
+    }
+
+    function drawConfetti() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      confettis.forEach((confetti) => {
+        ctx.fillStyle = confetti.color;
+        ctx.beginPath();
+        ctx.rect(confetti.x, confetti.y, confetti.size, confetti.size);
+        ctx.fill();
+
+        confetti.y += confetti.speed;
+        confetti.x += Math.sin(confetti.angle);
+        if (confetti.y > canvas.height) confetti.y = -10;
+      });
+      requestAnimationFrame(drawConfetti);
+    }
+
+    generateBtn.addEventListener('click', async () => {
+      try { await clickSound.play(); } catch {}
+
+      createConfetti();
+      drawConfetti();
+
+      // Stop confetti after 2.5 seconds and redirect
+      setTimeout(() => {
+        confettis = [];
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        window.location.href = 'certificate.html';
+      }, 2500);
+    });
+  </script>
+
+</body>
+</html>

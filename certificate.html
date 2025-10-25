@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Half Graduation Certificate</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+<style>
+    body {
+        margin: 0;
+        font-family: 'Poppins', sans-serif;
+        background-color: #0d0f17;
+        color: white;
+        text-align: center;
+    }
+
+    header {
+        background-color: #141622;
+        padding: 20px;
+        border-bottom: 2px solid #2e3352;
+    }
+
+    header h1 {
+        margin: 0;
+        font-size: 20px;
+    }
+
+    footer {
+        margin-top: 40px;
+        padding: 10px;
+        background-color: #141622;
+        border-top: 2px solid #2e3352;
+        font-size: 14px;
+    }
+
+    .certificate-container {
+        margin: 40px auto;
+        padding: 40px;
+        background: white;
+        color: black;
+        border: 3px double black;
+        width: 70%;
+        border-radius: 12px;
+        box-shadow: 0 0 30px rgba(255, 215, 0, 0.3);
+    }
+
+    .certificate-header {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 15px;
+        margin-bottom: 20px;
+    }
+
+    .certificate-header img {
+        height: 80px;
+    }
+
+    .certificate-title {
+        font-size: 22px;
+        font-weight: 700;
+        color: #000;
+    }
+
+    .quote-top, .quote-bottom {
+        font-size: 12px;
+        color: #444;
+        font-style: italic;
+        margin: 10px 0;
+    }
+
+    .highlight {
+        font-weight: bold;
+        font-size: 20px;
+        color: #000;
+    }
+
+    .signature {
+        margin-top: 20px;
+        text-align: right;
+        font-style: italic;
+    }
+
+    .signature img {
+        height: 50px;
+    }
+
+    .buttons {
+        margin: 30px 0;
+    }
+
+    .buttons button {
+        padding: 10px 20px;
+        background-color: #4c6ef5;
+        border: none;
+        color: white;
+        border-radius: 6px;
+        margin: 0 10px;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+
+    .buttons button:hover {
+        background-color: #364fc7;
+    }
+
+    .social-links {
+        margin-top: 30px;
+    }
+
+    .social-links a {
+        color: white;
+        margin: 0 15px;
+        font-size: 22px;
+        text-decoration: none;
+        transition: 0.3s;
+    }
+
+    .social-links a:hover {
+        color: #ffd43b;
+    }
+</style>
+</head>
+
+<body>
+    <header>
+        <h1>🎓 Half Graduation Celebration</h1>
+        “An Honorary Badge for a Brilliant Star Among Us-That's you!” 🌟🏆
+    </header>
+
+    <section id="certificateSection">
+        <div class="certificate-container" id="certificate">
+            <div class="certificate-header">
+                <img src="/logo.png" alt="College Logo">
+                <h2 class="certificate-title">Certificate of Half Graduation</h2>
+            </div>
+
+            <p>A certificate today, a degree tomorrow — keep going!</p>
+            <div class="quote-top">“The expert in anything was once a beginner.” — Helen Hayes</div>
+
+            <p>This certifies that</p>
+            <p class="highlight">🖋️ <span id="studentName">[Name]</span></p>
+            <p>Roll Number: <span id="studentRoll">[Roll Number]</span></p>
+
+            <p>has successfully🎉  completed half of its  CS journey!<br>And also able to say proudly that i am <strong>Half scholer.🎓</strong><br>🌟 The best is yet to come.</p>
+
+            <div class="quote-bottom">“You are braver than you believe, stronger than you seem, and smarter than you think.” — A.A. Milne</div>
+
+            <p>📅 <span id="date"></span></p>
+            <div class="signature">
+                <p>🖊️ Official Signatory:</p>
+                <strong>Aown Muhammad</strong>
+            </div>
+        </div>
+
+        <div class="buttons">
+            <button onclick="downloadPNG()">Download PNG</button>
+            <button onclick="downloadPDF()">Download PDF</button>
+        </div>
+    </section>
+
+    <section class="social-links">
+        <h3>Connect with Me</h3>
+        <a href="https://www.tiktok.com/@aown541?_t=ZS-8y00jHeu08t&_r=1" target="_blank"><i class="fab fa-tiktok"></i></a>
+        <a href="https://www.facebook.com/share/1BckVcSYtE/" target="_blank"><i class="fab fa-facebook"></i></a>
+        <a href="https://www.instagram.com/aown.459?igsh=MWRqd25pcXl1OGZxOA==" target="_blank"><i class="fab fa-instagram"></i></a>
+        <a href="https://github.com/AOWNMUHAMMAD143" target="_blank"><i class="fab fa-github"></i></a>
+    </section>
+
+    <h5>“Keep shining, keep striving, and make the next half legendary! 💫🏆”</h5>
+    <br>
+    <h4>By -Aown and his group!</h4>
+
+    <footer>
+        © 2025 Half Graduation Celebration · Built with ❤️ by Aown Muhammad and company.
+    </footer>
+
+<script>
+    // Load stored name & roll number
+    document.addEventListener("DOMContentLoaded", () => {
+        const name = localStorage.getItem("studentName") || "Student";
+        const roll = localStorage.getItem("studentRoll") || "000";
+        document.getElementById("studentName").textContent = name;
+        document.getElementById("studentRoll").textContent = roll;
+        document.getElementById("date").textContent = new Date().toLocaleDateString();
+    });
+
+    // Download PNG
+    async function downloadPNG() {
+        const element = document.getElementById("certificate");
+        const canvas = await html2canvas(element);
+        const link = document.createElement("a");
+        link.download = "Half_Graduation_Certificate.png";
+        link.href = canvas.toDataURL("image/png");
+        link.click();
+    }
+
+    // Download PDF
+    async function downloadPDF() {
+        const { jsPDF } = window.jspdf;
+        const element = document.getElementById("certificate");
+        const canvas = await html2canvas(element);
+        const imgData = canvas.toDataURL("image/png");
+
+        const pdf = new jsPDF({
+            orientation: "portrait",
+            unit: "pt",
+            format: "a4"
+        });
+
+        const pdfWidth = pdf.internal.pageSize.getWidth();
+        const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
+
+        pdf.addImage(imgData, "PNG", 0, 0, pdfWidth, pdfHeight);
+        pdf.save("Half_Graduation_Certificate.pdf");
+    }
+</script>
+</body>
+</html>
