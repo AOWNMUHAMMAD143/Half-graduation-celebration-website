@@ -135,9 +135,7 @@
     <section id="certificateSection">
         <div class="certificate-container" id="certificate">
             <div class="certificate-header">
-                <img src="logo.png"
-     alt="College Logo" crossorigin="anonymous">
-
+                <img src="/logo.png" alt="College Logo">
                 <h2 class="certificate-title">Certificate of Half Graduation</h2>
             </div>
 
@@ -195,11 +193,6 @@
     async function downloadPNG() {
         const element = document.getElementById("certificate");
         const canvas = await html2canvas(element);
-        const canvas = await html2canvas(element, {
-  useCORS: true,
-  allowTaint: false,
-});
-
         const link = document.createElement("a");
         link.download = "Half_Graduation_Certificate.png";
         link.href = canvas.toDataURL("image/png");
@@ -228,6 +221,3 @@
 </script>
 </body>
 </html>
-
-
-
